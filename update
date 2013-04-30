@@ -12,11 +12,15 @@ function check_message_format {
   for rid in "${!array[@]}"; do 
 	revision=${array[rid]}
     message=$(git cat-file commit $revision | sed '1,/^$/d')
-	grepped=$(echo $message | grep -i "case [0-9]\+")
+	grepped=$(echo $message | grep -i "#[0-9]\+")
     if [ -z "$grepped" ] ; then
-		echo "Your message is not formatted correctly" >&2
-		echo "The message was: $message" >&2
-		exit 1
+		grepped_none=$(echo $message | grep -i "#none")
+		if [ -n "$grepped_none" ] ; then
+			echo "Warning, you are committing without a ticket reference" >&1
+		else
+			echo "You have not included a ticket reference" >&2
+			exit 1
+		fi
     fi
   done
 }
