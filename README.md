@@ -52,7 +52,7 @@ Given that GitLab uses the update hook for all repositories, a pre-recieve hook 
 Instead of being executed for each branch pushed, the pre-recieve hook is executed once per push.
 This means, that valid commits for a branch can be rejected, because other branches have incorrect messages.
 
-# Workflow 
+## Workflow 
 
 ## Simple workflow, one commit rejected
 
