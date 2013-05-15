@@ -1,5 +1,4 @@
-git-hooks
-=========
+# git-hooks
 
 ## Introduction
 
