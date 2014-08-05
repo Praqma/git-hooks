@@ -1,24 +1,11 @@
 #!/usr/bin/env bash
 #
 
+source pre-receive-functions.sh
+
 # enforced custom commit message format
 while read old_revision new_revision refname ; do
-  revisions=$(git rev-list $old_revision..$new_revision)
-  IFS='\n' read -ra array <<< "$revisions"
-  for rid in "${!array[@]}"; do 
-	revision=${array[rid]}
-    message=$(git cat-file commit $revision | sed '1,/^$/d')
-	grepped=$(echo $message | grep -i "#[0-9]\+")
-    if [ -z "$grepped" ] ; then
-		grepped_none=$(echo $message | grep -i "#none")
-		if [ -n "$grepped_none" ] ; then
-			echo "Warning, you are committing without a ticket reference" >&1
-		else
-			echo "You have not included a ticket reference" >&2
-			exit 1
-		fi
-    fi
-  done
+	process_revisions
 done
 
 exit 0

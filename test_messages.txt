@@ -1,0 +1,40 @@
+% These are lines needed to parse pre-receive hook
+% One test commit message pr. line - no empty lines
+% Lines stargin with % are ignored.
+% Rules:
+% 1) Somewhere in the message there must be a "TICKET REFERENCE"
+%    like these (without quotes)
+%    "Ticket#" or "#" followed by any number of digits
+% 2) A TICKET REFERENCE must be followed by a TEXT (the developer commit message)
+% 3) After a TICKET REFERENCE, and before TEXT there must be either whitespace or colon
+%    like these (without quotes)
+%    "Ticket#456 my text", "Ticket#456:my text", "#456 my text", "#456:my text"
+% 4) Several ticket references is seperated by colon
+%    like these (without quotes)
+%    "Ticket#456,Ticket#567 my text", "Ticket#456,#567 my text"
+%    "#456,#567,#3 text"
+%
+% Messages with different numbers of digits:
+Ticket#0 Ticket single digit
+Ticket#01 Two digits
+Ticket#012 Three digits
+Ticket#0123 Four digits
+Ticket#0123 Four digits
+%
+% Allow for colon (or non colon as above)
+Ticket#5: colon 1
+Ticket#85: colon 2
+Ticket#845: colon 3
+Ticket#3445: colon 4
+%
+% Alow to skip 'ticket word' to save space
+#0 my msg
+#01 my msg
+#123 new msg
+#1234 new ticket numbers
+%
+% Alow several ticket references
+#0,23 my msg
+#01,989 my msg
+#123,46 new msg
+#1234,87 new ticket numbers
