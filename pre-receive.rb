@@ -5,7 +5,7 @@
 # http://stackoverflow.com/questions/2569960/git-pre-receive-hook
 
 
-$regex = /((^([Tt]icket#\d+){1}(,[Tt]icket#\d+|,#\d+)*)|(^([Tt]icket#none)))(\s|:\s?){1}(.*)/
+$regex = /(^Merge\sbranch{1})(.*)|((^([Tt]icket#\d+){1}(,[Tt]icket#\d+|,#\d+)*)|(^([Tt]icket#none)))(\s|:\s?){1}(.*)/
 
 # Simple function, just for ease of testing
 def parse_message(msg,re)

@@ -65,6 +65,14 @@ def test_regexp
   assert_false(parse_message("#456, ,#6 my msg",re))
   assert_false(parse_message("#456, , #6 my msg",re))
   assert_false(parse_message("Ticket#456, ticket#34, ticket#9876, my msg",re))
+    
+  # Handle default merge messages
+  assert_true(parse_message("Merge branch 'master' of repo.company.dk:playground/githook",re))
+  assert_true(parse_message("Merge branch 'developer' of repo.company.dk:playground/githook",re))
+  assert_true(parse_message("Ticket#none: Merge branch 'developer' of repo.company.dk:playground/githook",re))
+  assert_false(parse_message("Merging branches",re))
+  assert_false(parse_message("Merge",re))
+  assert_false(parse_message("My commit message without ticket or merge reference",re))
 end
 
 end
