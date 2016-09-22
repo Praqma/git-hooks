@@ -63,7 +63,7 @@ This means, that valid commits for a branch can be rejected, because other branc
 
 1. "git log"
 1. Find the last correct commit and copy the SHA
-1. "git rebase -i <SHA>"
+1. "git rebase -i `<SHA>`"
 1. Mark the commits with the incorrect messages with 'r', save and exit
 1. Reword the incorrect messages
 1. push again
